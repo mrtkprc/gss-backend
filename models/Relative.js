@@ -5,7 +5,7 @@ const RelativeSchema = new Schema({
     name:Schema.Types.String,
     surname:Schema.Types.String,
     gsm:Schema.Types.String,
-    email:Schema.Types.email,
+    email:Schema.Types.String,
     geriatric_id:Schema.Types.ObjectId
 });
 
