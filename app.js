@@ -14,10 +14,16 @@ const app = express();
 //db connection
 const db = require('./helpers/db');
 db();
+// config.js
+const config = require('./config');
+
+//verify Token
+const verifyToken = require('./middleware/verify-token');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+app.set('API_SECRET_KEY',config.api_secret_key);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -26,6 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api/sensor/add/stimulus',verifyToken);
 app.use('/api/sensor/',sensorsRouter);
 app.use('/api/geriatric/',geriatricRouter);
 app.use('/api/relative/',relativeRouter);
