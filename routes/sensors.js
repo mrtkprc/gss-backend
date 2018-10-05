@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router();
 const SensorData = require('../models/SensorData');
 const SensorLocation = require('../models/SensorLocation');
@@ -21,7 +20,8 @@ router.post('/add/stimulus/', (req, res, next) => {
     const d = new Date();
     const today = d.getFullYear().toString()+"-"+("0" + (d.getMonth() + 1)).slice(-2).toString()+"-"+("0" + d.getDate()).slice(-2).toString();
     const today_with_hour = today+ " "+ ("0" + d.getHours()).slice(-2).toString()+":"+ ("0" + d.getMinutes()).slice(-2).toString()+":"+("0" + d.getSeconds()).slice(-2).toString();
-    const {sensor_location_id,geriatric_id} = req.body;
+
+    const {sensor_location_id,geriatric_id} = req.decode;
     SensorData.countDocuments({ },( err, count) => {
         if(count < 1)
         {
@@ -38,11 +38,15 @@ router.post('/add/stimulus/', (req, res, next) => {
                 res.json(err);
             });
         }
-        else
+        else // count >= 1 ise
         {
             const val = SensorData.updateOne({geriatric_id},{$push:{sensor_stimulations:today_with_hour}});
             val.then((data) => {
-                res.json({result:"Updated."});
+                res.json(
+                    {
+                        status:true,
+                        result:"Stimulus is added."}
+                    );
             }).catch((err) => {
                 res.json(err);
             });
