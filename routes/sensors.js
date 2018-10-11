@@ -3,6 +3,89 @@ const router = express.Router();
 const SensorData = require('../models/SensorData');
 const SensorLocation = require('../models/SensorLocation');
 
+router.get('/get/stimulus/:year/:month/:day', (req, res, next) => {
+    const {year, month, day} = req.params;
+    const geriatric_id = '5ba8f3ec1b4f4a24ccb372c2'; //burayı jwtden al sonra
+    /*
+    const val = SensorData.find(
+        {
+            sensor_date: year+"-"+month+"-"+day,
+            geriatric_id
+        },
+        {
+            _id:0,
+            geriatric_id:0,
+            sensor_date:0,
+            __v:0
+        },
+    );
+    */
+    const val = SensorData.aggregate([
+        {
+            $lookup: {
+                from: 'sensor_locations',
+                localField: 'sensor_location_id',
+                foreignField: '_id',
+                as: 'sensor_location'
+            },
+
+        },
+        {
+            $unwind: '$sensor_location'
+        },
+        {
+            $project: {
+                _id: 0,
+                sensor_stimulations: 1,
+                sensor_location_id: '$sensor_location._id',
+                sensor_location_name: '$sensor_location.name'
+            }
+        }
+    ], (err, val) => {
+        const result = [];
+        const final_result = [];
+        for(let i = 0;i<Object.keys(val).length;i++)
+        {
+            let stimulations_array = val[i]['sensor_stimulations'];
+            let last_stimulation = (stimulations_array[stimulations_array.length-1]).toString();
+            let sensor_location_id = val[i]['sensor_location_id'];
+            let sensor_location_name = val[i]['sensor_location_name'];
+
+            if(final_result.length === 0) {
+                final_result.push(
+                    {
+                        sensor_location_id,
+                        last_stimulation,
+                        sensor_location_name
+                    }
+                )
+            }
+            else{
+                let first_element = val[0]['last_stimulation'];
+                if(first_element > last_stimulation ){
+                    final_result.push(
+                        {
+                            sensor_location_id,
+                            last_stimulation,
+                            sensor_location_name
+                        }
+                    );
+                }else{
+                    final_result.unshift(
+                        {
+                            sensor_location_id,
+                            last_stimulation,
+                            sensor_location_name
+                        }
+                    );
+                }
+            }
+
+        }
+        res.json(final_result);
+    });
+});
+
 router.post('/add/location/', (req, res, next) => {
     //Sensor Location Added
     const value_added = new SensorLocation(req.body);
@@ -22,7 +105,9 @@ router.post('/add/stimulus/', (req, res, next) => {
     const today_with_hour = today+ " "+ ("0" + d.getHours()).slice(-2).toString()+":"+ ("0" + d.getMinutes()).slice(-2).toString()+":"+("0" + d.getSeconds()).slice(-2).toString();
 
     const {sensor_location_id,geriatric_id} = req.decode;
-    SensorData.countDocuments({ },( err, count) => {
+    console.log("Sensor Location id: ",sensor_location_id," Geriatric ID: ",geriatric_id);
+    SensorData.countDocuments({geriatric_id,sensor_location_id },( err, count) => {
+
         if(count < 1)
         {
             const sensor_data = new SensorData({
@@ -34,13 +119,20 @@ router.post('/add/stimulus/', (req, res, next) => {
             const value_added = sensor_data.save();
             value_added.then((data) => {
                 res.json(data);
+                const upd = SensorData.updateOne({geriatric_id,sensor_location_id },{$push:{sensor_stimulations:today_with_hour}});
+                upd.then((data_with_insertion) => {
+
+                })
             }).catch((err) => {
                 res.json(err);
             });
         }
         else // count >= 1 ise
         {
-            const val = SensorData.updateOne({geriatric_id},{$push:{sensor_stimulations:today_with_hour}});
+
+
+
+            const val = SensorData.updateOne({geriatric_id,sensor_location_id },{$push:{sensor_stimulations:today_with_hour}});
             val.then((data) => {
                 res.json(
                     {
