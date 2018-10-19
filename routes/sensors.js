@@ -106,8 +106,7 @@ router.post('/add/stimulus/', (req, res, next) => {
 
     const {sensor_location_id,geriatric_id} = req.decode;
     console.log("Sensor Location id: ",sensor_location_id," Geriatric ID: ",geriatric_id);
-    SensorData.countDocuments({geriatric_id,sensor_location_id },( err, count) => {
-
+    SensorData.countDocuments({geriatric_id,sensor_location_id, sensor_date:today },( err, count) => {
         if(count < 1)
         {
             const sensor_data = new SensorData({
@@ -119,7 +118,7 @@ router.post('/add/stimulus/', (req, res, next) => {
             const value_added = sensor_data.save();
             value_added.then((data) => {
                 res.json(data);
-                const upd = SensorData.updateOne({geriatric_id,sensor_location_id },{$push:{sensor_stimulations:today_with_hour}});
+                const upd = SensorData.updateOne({geriatric_id,sensor_location_id,sensor_date:today },{$push:{sensor_stimulations:today_with_hour}});
                 upd.then((data_with_insertion) => {
 
                 })
@@ -129,10 +128,9 @@ router.post('/add/stimulus/', (req, res, next) => {
         }
         else // count >= 1 ise
         {
+            console.log("Count in Else ",count);
 
-
-
-            const val = SensorData.updateOne({geriatric_id,sensor_location_id },{$push:{sensor_stimulations:today_with_hour}});
+            const val = SensorData.updateOne({geriatric_id,sensor_location_id,sensor_date:today },{$push:{sensor_stimulations:today_with_hour}});
             val.then((data) => {
                 res.json(
                     {
