@@ -98,7 +98,7 @@ router.post('/add/location/', (req, res, next) => {
     });
 });
 
-router.get('/add/stimulus_get/:token', (req, res, next) => {
+router.get('/mk/:token', (req, res, next) => {
     console.log("stimulus get");
     const d = new Date();
 
