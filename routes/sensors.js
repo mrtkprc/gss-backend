@@ -100,7 +100,7 @@ router.post('/add/location/', (req, res, next) => {
 
 router.get('/add/stimulus_get/:token', (req, res, next) => {
     const {token} = req.params
-    req.json(token)
+    res.json(token);
 });
 router.post('/add/stimulus/', (req, res, next) => {
     //Sensor Data Added
