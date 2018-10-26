@@ -32,8 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api/sensor/add/stimulus');
-//app.use('/api/sensor/add/stimulus',verifyToken);
+app.use('/api/sensor/add/stimulus',verifyToken);
 app.use('/api/sensor/',sensorsRouter);
 app.use('/api/geriatric/',geriatricRouter);
 app.use('/api/relative/',relativeRouter);
