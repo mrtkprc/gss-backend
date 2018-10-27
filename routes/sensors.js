@@ -98,23 +98,6 @@ router.post('/add/location/', (req, res, next) => {
     });
 });
 
-router.get('/mk/:token', (req, res, next) => {
-    console.log("stimulus get");
-    const d = new Date();
-
-    const sensor_location_id = "5ba8f7bdb682be1b1c123e73";
-    const geriatric_id = "5ba8f3ec1b4f4a24ccb372c2";
-    const sensor_data = new SensorData({
-        sensor_location_id,
-        geriatric_id,
-        sensor_date:d.getFullYear().toString()+"-"+("0" + (d.getMonth() + 1)).slice(-2).toString()+"-"+("0" + d.getDate()).slice(-2).toString()
-    });
-    const value_added = sensor_data.save();
-    value_added.then((data) => {
-        res.json("Okey Başarılı")
-    });
-    console.log("sitimulus get finished");
-});
 router.post('/add/stimulus/', (req, res, next) => {
     //Sensor Data Added
     const d = new Date();
