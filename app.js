@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const telegramBot = require('./helpers/telegram_bot/bot_server');
+
 const indexRouter = require('./routes/index');
 const sensorsRouter = require('./routes/sensors');
 const geriatricRouter = require('./routes/geriatrics');
@@ -11,6 +13,7 @@ const relativeRouter = require('./routes/relatives');
 
 
 const app = express();
+
 //db connection
 const db = require('./helpers/db');
 db();

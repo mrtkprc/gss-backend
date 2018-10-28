@@ -5,21 +5,9 @@ const SensorLocation = require('../models/SensorLocation');
 
 router.get('/get/stimulus/:year/:month/:day', (req, res, next) => {
     const {year, month, day} = req.params;
+    //const geriatric_id = req.decode; // burayı açıp token ile al
     const geriatric_id = '5ba8f3ec1b4f4a24ccb372c2'; //burayı jwtden al sonra
-    /*
-    const val = SensorData.find(
-        {
-            sensor_date: year+"-"+month+"-"+day,
-            geriatric_id
-        },
-        {
-            _id:0,
-            geriatric_id:0,
-            sensor_date:0,
-            __v:0
-        },
-    );
-    */
+
     const val = SensorData.aggregate([
         {
             $lookup: {
