@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d4e7bb32-c04b-48b7-8de4-cd01b16bf875" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/helpers/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Geriatric.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Geriatric.js" afterDir="false" />
-    </list>
+    <list default="true" id="d4e7bb32-c04b-48b7-8de4-cd01b16bf875" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -92,14 +89,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="20" />
-          <entry key="js" value="7115" />
+          <entry key="js" value="7120" />
           <entry key="json" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="10" />
-          <entry key="JavaScript" value="7115" />
+          <entry key="JavaScript" value="7120" />
           <entry key="PLAIN_TEXT" value="20" />
         </counts>
       </usages-collector>
@@ -116,11 +113,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/helpers/telegram_bot/bot_server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+            <state relative-caret-position="109">
+              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
             </state>
           </provider>
         </entry>
@@ -134,10 +131,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
+            <state relative-caret-position="220">
               <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
             </state>
           </provider>
@@ -193,9 +190,9 @@
         <option value="$PROJECT_DIR$/routes/sensors.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/helpers/db.js" />
-        <option value="$PROJECT_DIR$/helpers/telegram_bot/bot_server.js" />
         <option value="$PROJECT_DIR$/models/Geriatric.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/helpers/telegram_bot/bot_server.js" />
       </list>
     </option>
   </component>
@@ -333,18 +330,18 @@
       <workItem from="1540395725568" duration="787000" />
       <workItem from="1540542287037" duration="3296000" />
       <workItem from="1540628811331" duration="1080000" />
-      <workItem from="1540734137044" duration="7511000" />
+      <workItem from="1540734137044" duration="8025000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63700000" />
+    <option name="totallyTimeSpent" value="64214000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16136725" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16136725" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -358,7 +355,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.4466192" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.4466192" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -478,13 +475,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/helpers/telegram_bot/bot_server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/geriatrics.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -501,8 +491,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
+        <state relative-caret-position="220">
           <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/helpers/telegram_bot/bot_server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
