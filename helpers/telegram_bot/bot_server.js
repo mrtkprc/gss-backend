@@ -1,7 +1,9 @@
 process.env["NTBA_FIX_319"] = 1 //Telegram Bot hatası için
 const TelegramBot = require('node-telegram-bot-api');
-const token = "705081525:AAGrp5vIoRr2iXRzlaGdKIMEC9ZB2ncqsFA";
+const token = "705081525:AAGrp5vIoRr2iXRzlaGdKIMEC9ZB2ncqsFAmk";
 const bot = new TelegramBot(token,{polling:true});
+const axios = require('axios');
+
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
     const chatId = msg.chat.id;
@@ -11,12 +13,15 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 
 bot.onText(/\/register (.+)/, (msg, match) => {
     const chatId = msg.chat.id;
-    const geriatric_public_key = match[1]; // the captured "whatever"
+    const geriatric_public_key = match[1];
     bot.sendMessage(chatId, geriatric_public_key.toString().toUpperCase());
 });
 
 bot.onText(/\/gss/, (msg) => {
-    bot.sendMessage(msg.chat.id, "Mert Köprücü, 15 dakikadır mutfakta bulunmaktadır.");
+    axios.get('/api/sensor/get/stimulus/2018/10/19')
+        .then((response) => {
+            console.log(response);
+        })
 });
 
 
