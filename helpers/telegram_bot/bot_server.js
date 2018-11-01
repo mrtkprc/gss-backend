@@ -87,7 +87,7 @@ bot.onText(/\/last/, (msg) => {
                         message = "Last Signal Date: " + last_stimulation +"\n" +"Location Information: " + sensor_location_name+"\n";
                     }
                     else
-                        message = "There is no signal today!";
+                        message = "There is no any signal in the system.";
 
                     bot.sendMessage(msg.chat.id,message);
                 })

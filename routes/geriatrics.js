@@ -22,7 +22,7 @@ router.post('/add', (req, res, next) => {
 });
 
 router.put('/update/telegram/chat_id', (req, res, next) => {
-    const { telegram_chat_id,public_key,token } = req.decode;
+    const { telegram_chat_id,public_key } = req.decode;
     console.log("Telegram Update Endpoint: ",telegram_chat_id," ",public_key);
     const promise = Geriatric.updateOne({public_key},{telegram_chat_id})
 

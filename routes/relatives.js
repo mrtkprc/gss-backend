@@ -4,7 +4,7 @@ const Relative = require('../models/Relative');
 
 
 router.post('/add', (req, res, next) => {
-    const { name,surname,gsm } = req.decode;
+    const { name,surname,gsm,email,geriatric_id } = req.decode;
     const value_added = new Relative({
         name,
         surname,

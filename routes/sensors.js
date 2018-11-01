@@ -117,7 +117,7 @@ router.get(['/get/stimulus/:year/:month/:day','/get/stimulus/today','/get/stimul
 });
 
 router.post('/add/location/', (req, res, next) => {
-    const value_added = new SensorLocation(req.body);
+    const value_added = new SensorLocation(req.decode);
     const promise = value_added.save();
 
     promise.then((data) => {
