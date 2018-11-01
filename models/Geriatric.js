@@ -5,11 +5,11 @@ const GeriatricSchema = new Schema({
     name:Schema.Types.String,
     surname:Schema.Types.String,
     gsm:Schema.Types.String,
-    telegram_chat_ids:Schema.Types.Array,
+    telegram_chat_id:Schema.Types.String,
     public_key: {
         type:Schema.Types.String,
         required:true,
-        dropDups:true
+        unique:true,
     }
 });
 

@@ -1,14 +1,43 @@
 const express = require('express');
+const ObjectId = require('mongoose').Types.ObjectId;
 const router = express.Router();
 const SensorData = require('../models/SensorData');
 const SensorLocation = require('../models/SensorLocation');
+const { convertDate2YearMonthDay,convertDate2DateAndTime } = require('../helpers/global_operations');
 
-router.get('/get/stimulus/:year/:month/:day', (req, res, next) => {
-    const {year, month, day} = req.params;
-    //const geriatric_id = req.decode; // burayı açıp token ile al
-    const geriatric_id = '5ba8f3ec1b4f4a24ccb372c2'; //burayı jwtden al sonra
-
-    const val = SensorData.aggregate([
+router.get(['/get/stimulus/:year/:month/:day','/get/stimulus/today','/get/stimulus/last'], (req, res, next) => {
+    let date_time = "";
+    let isLastEndPoint = false;
+    const {geriatric_id} = req.decode;
+    if ( req.path === '/get/stimulus/today' )
+    {
+        date_time = convertDate2YearMonthDay(new Date());
+    }
+    else if ( req.path === '/get/stimulus/last')
+    {
+        isLastEndPoint = true;
+    }
+    else
+    {
+        const {year, month, day} = req.params;
+        date_time = convertDate2YearMonthDay(new Date(parseInt(year),parseInt(month)-1,parseInt(day),0,0,0,0));
+    }
+    let match_value = {};
+    //LastEndPoint'de match için tarih verilmemesi adına yapıldı.
+    if(isLastEndPoint === false)
+    {
+        match_value = {
+            sensor_date : date_time,
+            geriatric_id:ObjectId(geriatric_id)
+        };
+    }
+    else
+    {
+        match_value = {
+            geriatric_id:ObjectId(geriatric_id)
+        };
+    }
+    const val_pro = SensorData.aggregate([
         {
             $lookup: {
                 from: 'sensor_locations',
@@ -22,6 +51,10 @@ router.get('/get/stimulus/:year/:month/:day', (req, res, next) => {
             $unwind: '$sensor_location'
         },
         {
+            $match:match_value
+        }
+        ,
+        {
             $project: {
                 _id: 0,
                 sensor_stimulations: 1,
@@ -30,8 +63,9 @@ router.get('/get/stimulus/:year/:month/:day', (req, res, next) => {
             }
         }
     ], (err, val) => {
-        const result = [];
         const final_result = [];
+
+
         for(let i = 0;i<Object.keys(val).length;i++)
         {
             let stimulations_array = val[i]['sensor_stimulations'];
@@ -68,14 +102,21 @@ router.get('/get/stimulus/:year/:month/:day', (req, res, next) => {
                     );
                 }
             }
-
         }
-        res.json(final_result);
+        if(final_result.length > 0)
+        {
+            res.json(final_result.sort((a, b) => {
+                return b.last_stimulation.toString().localeCompare(a.last_stimulation.toString());
+            }));
+        }
+        else
+        {
+            res.json([]);
+        }
     });
 });
 
 router.post('/add/location/', (req, res, next) => {
-    //Sensor Location Added
     const value_added = new SensorLocation(req.body);
     const promise = value_added.save();
 
@@ -89,8 +130,8 @@ router.post('/add/location/', (req, res, next) => {
 router.post('/add/stimulus/', (req, res, next) => {
     //Sensor Data Added
     const d = new Date();
-    const today = d.getFullYear().toString()+"-"+("0" + (d.getMonth() + 1)).slice(-2).toString()+"-"+("0" + d.getDate()).slice(-2).toString();
-    const today_with_hour = today+ " "+ ("0" + d.getHours()).slice(-2).toString()+":"+ ("0" + d.getMinutes()).slice(-2).toString()+":"+("0" + d.getSeconds()).slice(-2).toString();
+    const today = convertDate2YearMonthDay(new Date());
+    const today_with_hour = convertDate2DateAndTime(new Date());
 
     const {sensor_location_id,geriatric_id} = req.decode;
     console.log("Sensor Location id: ",sensor_location_id," Geriatric ID: ",geriatric_id);

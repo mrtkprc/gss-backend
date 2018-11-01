@@ -35,10 +35,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api/sensor/add/stimulus',verifyToken);
-app.use('/api/sensor/',sensorsRouter);
-app.use('/api/geriatric/',geriatricRouter);
-app.use('/api/relative/',relativeRouter);
+app.use('/api/sensor/',verifyToken,sensorsRouter);
+app.use('/api/geriatric/',verifyToken,geriatricRouter);
+app.use('/api/relative/',verifyToken,relativeRouter);
 
 
 // catch 404 and forward to error handler

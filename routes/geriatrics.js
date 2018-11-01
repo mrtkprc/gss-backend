@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const SensorData = require('../models/Geriatric');
-
+const Geriatric = require('../models/Geriatric');
+const shortid = require('shortid');
 
 router.post('/add', (req, res, next) => {
-    const { name,surname,gsm,public_key } = req.body;
-    const value_added = new SensorData({
+    const { name,surname,gsm } = req.decode;
+    const value_added = new Geriatric({
         name,
         surname,
         gsm,
-        public_key
+        telegram_chat_id:'',
+        public_key:shortid.generate()
     });
     const promise = value_added.save();
 
@@ -19,6 +20,37 @@ router.post('/add', (req, res, next) => {
         res.json(err);
     });
 });
+
+router.put('/update/telegram/chat_id', (req, res, next) => {
+    const { telegram_chat_id,public_key,token } = req.decode;
+    console.log("Telegram Update Endpoint: ",telegram_chat_id," ",public_key);
+    const promise = Geriatric.updateOne({public_key},{telegram_chat_id})
+
+    promise.then((data) => {
+        if(data.nModified == 1)
+        {
+            res.json({
+                status:"true",
+                text:"Updating Telegram ChatID is successful"
+            })
+        }
+        else
+        {
+            res.json({
+                status: "false",
+                text: "Telegram Chat id is already active."
+            });
+        }
+    }).catch((err) => {
+        res.json({
+            status: "false",
+            text: "Updating Telegram ChatID is failed"
+        });
+    });
+
+
+});
+
 
 
 module.exports = router;
