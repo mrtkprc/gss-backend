@@ -10,9 +10,21 @@ const indexRouter = require('./routes/index');
 const sensorsRouter = require('./routes/sensors');
 const geriatricRouter = require('./routes/geriatrics');
 const relativeRouter = require('./routes/relatives');
-
-
 const app = express();
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+
+
+
+
+
+
+
 
 //db connection
 const db = require('./helpers/db');
