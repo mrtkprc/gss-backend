@@ -4,7 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const telegramBot = require('./helpers/telegram_bot/bot_server');
+//const telegramBot = require('./helpers/telegram_bot/bot_server');
 
 const indexRouter = require('./routes/index');
 const sensorsRouter = require('./routes/sensors');
@@ -17,14 +17,6 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
-
-
-
-
-
-
-
 
 //db connection
 const db = require('./helpers/db');
