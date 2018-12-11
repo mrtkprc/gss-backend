@@ -6,16 +6,21 @@ const SensorLocation = require('../models/SensorLocation');
 const { convertDate2YearMonthDay,convertDate2DateAndTime } = require('../helpers/global_operations');
 
 router.get(['/get/stimulus/:year/:month/:day','/get/stimulus/today','/get/stimulus/last'], (req, res, next) => {
+    console.log();
     let date_time = "";
     let isLastEndPoint = false;
     const {geriatric_id} = req.decode;
-    if ( req.path === '/get/stimulus/today' )
+    console.log("Geriatric ID: ",geriatric_id);
+    console.log("Req.Path: ",req.path);
+    if ( req.path === '/get/stimulus/today/' || req.path === '/get/stimulus/today' )
     {
         date_time = convertDate2YearMonthDay(new Date());
+        
     }
-    else if ( req.path === '/get/stimulus/last')
+    else if ( req.path === '/get/stimulus/last/' || req.path === '/get/stimulus/last')
     {
         isLastEndPoint = true;
+        
     }
     else
     {
