@@ -61,10 +61,11 @@ router.get(['/get/stimulus/:year/:month/:day','/get/stimulus/today','/get/stimul
         ,
         {
             $project: {
-                _id: 0,
+                _id: 1,
                 sensor_stimulations: 1,
                 sensor_location_id: '$sensor_location._id',
-                sensor_location_name: '$sensor_location.name'
+                sensor_location_name: '$sensor_location.name',
+                sensor_location_icon_name: '$sensor_location.icon_name'
             }
         }
     ], (err, val) => {
@@ -77,13 +78,17 @@ router.get(['/get/stimulus/:year/:month/:day','/get/stimulus/today','/get/stimul
             let last_stimulation = (stimulations_array[stimulations_array.length-1]).toString();
             let sensor_location_id = val[i]['sensor_location_id'];
             let sensor_location_name = val[i]['sensor_location_name'];
+            let sensor_location_icon_name = val[i]['sensor_location_icon_name'];
+            let _id = val[i]['_id'];
 
             if(final_result.length === 0) {
                 final_result.push(
                     {
                         sensor_location_id,
                         last_stimulation,
-                        sensor_location_name
+                        sensor_location_name,
+                        sensor_location_icon_name,
+                        _id
                     }
                 )
             }
@@ -94,7 +99,9 @@ router.get(['/get/stimulus/:year/:month/:day','/get/stimulus/today','/get/stimul
                         {
                             sensor_location_id,
                             last_stimulation,
-                            sensor_location_name
+                            sensor_location_name,
+                            sensor_location_icon_name,
+                            _id
                         }
                     );
                 }else{
@@ -102,7 +109,9 @@ router.get(['/get/stimulus/:year/:month/:day','/get/stimulus/today','/get/stimul
                         {
                             sensor_location_id,
                             last_stimulation,
-                            sensor_location_name
+                            sensor_location_name,
+                            sensor_location_icon_name,
+                            _id
                         }
                     );
                 }
@@ -118,6 +127,36 @@ router.get(['/get/stimulus/:year/:month/:day','/get/stimulus/today','/get/stimul
         {
             res.json([]);
         }
+    });
+});
+
+router.get('/get/locations',(req,res,next) => {
+    const {geriatric_id} = req.decode;
+    const val_pro = SensorLocation.find({geriatric_id});
+
+    val_pro.then((data) => {
+        res.json(data);
+    }).catch((err) => {
+        res.json({
+            ...err,
+            status:false
+        })
+    });
+});
+
+router.get('/get/location/stimuluses',(req,res,next) => {
+    const {sensor_location_id} = req.decode;
+    const sensor_date = convertDate2YearMonthDay(new Date());
+    console.log(sensor_date);
+    const val_pro = SensorData.find({sensor_location_id,sensor_date});
+
+    val_pro.then((data) => {
+        res.json(data);
+    }).catch((err) => {
+        res.json({
+            ...err,
+            status:false
+        })
     });
 });
 
