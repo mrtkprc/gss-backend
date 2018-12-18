@@ -27,7 +27,17 @@ router.post('/login_control', (req, res, next) => {
     const { email,password } = req.decode;
     Relative.findOne({email,password},(err,data) => {
         if(data != null)
-            res.json({status:true,email:data.email,geriatric_id:data.geriatric_id});
+            res.json({status:true,email:data.email,geriatric_id:data.geriatric_id,name:data.name,surname:data.surname,gsm:data.gsm});
+        else
+            res.json({status:false,message:"Authentication failed"});
+    });
+});
+
+router.get('/get/relative', (req, res, next) => {
+    const { email } = req.decode;
+    Relative.findOne({email},(err,data) => {
+        if(data != null)
+            res.json({email:data.email,name:data.name,surname:data.surname,gsm:data.gsm});
         else
             res.json({status:false,message:"Authentication failed"});
     });

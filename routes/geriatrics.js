@@ -21,6 +21,21 @@ router.post('/add', (req, res, next) => {
     });
 });
 
+router.get('/get/geriatric/', (req, res, next) => {
+    const {_id} = req.decode;
+    const promise = Geriatric.findOne({_id});
+
+    promise.then((data) => {
+        res.json(data);
+    }).catch((err)=>{
+        res.json({
+            status:false,
+            message:'Get Geriatric Failed'
+        });
+    });
+
+});
+
 router.put('/update/telegram/chat_id', (req, res, next) => {
     const { telegram_chat_id,public_key } = req.decode;
     console.log("Telegram Update Endpoint: ",telegram_chat_id," ",public_key);
@@ -47,8 +62,6 @@ router.put('/update/telegram/chat_id', (req, res, next) => {
             text: "Updating Telegram ChatID is failed"
         });
     });
-
-
 });
 
 
