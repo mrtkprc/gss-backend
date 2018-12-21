@@ -4,6 +4,7 @@ const router = express.Router();
 const SensorData = require('../models/SensorData');
 const SensorLocation = require('../models/SensorLocation');
 const { convertDate2YearMonthDay,convertDate2DateAndTime } = require('../helpers/global_operations');
+const _ = require('lodash');
 
 router.get(['/get/stimulus/:year/:month/:day','/get/stimulus/today','/get/stimulus/last'], (req, res, next) => {
     console.log();
@@ -215,6 +216,47 @@ router.post('/add/stimulus/', (req, res, next) => {
             });
         }
     });
+});
+
+router.get('/get_locations_with_stimuluses/', (req, res, next) => {
+    const {geriatric_id} = req.decode;
+    const sensor_date = convertDate2YearMonthDay(new Date());
+
+    const val_pro = SensorData.aggregate([
+        {
+            $match:{
+                geriatric_id:ObjectId(geriatric_id),
+                sensor_date
+            }
+        },
+        {
+            $lookup: {
+                from: 'sensor_locations',
+                localField: 'sensor_location_id',
+                foreignField: '_id',
+                as: 'sensor_location'
+            }
+        },
+        {
+            $unwind: '$sensor_location'
+        },
+        {
+            $project: {
+                _id: 1,
+                sensor_stimulations: 1,
+                sensor_location_id: '$sensor_location._id',
+                sensor_location_name: '$sensor_location.name',
+                sensor_location_icon_name: '$sensor_location.icon_name',
+                sensor_date:1
+            }
+        }
+    ],(err,result) => {
+        res.json(result);
+
+    });
+
+    
+    
 });
 
 module.exports = router;

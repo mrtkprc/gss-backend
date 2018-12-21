@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Relative = require('../models/Relative');
 
+
 router.post('/add', (req, res, next) => {
     const { name,surname,gsm,email,geriatric_id,password } = req.decode;
     const value_added = new Relative({
