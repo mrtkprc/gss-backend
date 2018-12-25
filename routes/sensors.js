@@ -11,8 +11,8 @@ router.get(['/get/stimulus/:year/:month/:day','/get/stimulus/today','/get/stimul
     let date_time = "";
     let isLastEndPoint = false;
     const {geriatric_id} = req.decode;
-    console.log("Geriatric ID: ",geriatric_id);
-    console.log("Req.Path: ",req.path);
+    //console.log("Geriatric ID: ",geriatric_id);
+    //console.log("Req.Path: ",req.path);
     if ( req.path === '/get/stimulus/today/' || req.path === '/get/stimulus/today' )
     {
         date_time = convertDate2YearMonthDay(new Date());
@@ -179,7 +179,7 @@ router.post('/add/stimulus/', (req, res, next) => {
     const today_with_hour = convertDate2DateAndTime(new Date());
 
     const {sensor_location_id,geriatric_id} = req.decode;
-    console.log("Sensor Location id: ",sensor_location_id," Geriatric ID: ",geriatric_id);
+    //console.log("Sensor Location id: ",sensor_location_id," Geriatric ID: ",geriatric_id);
     SensorData.countDocuments({geriatric_id,sensor_location_id, sensor_date:today },( err, count) => {
         if(count < 1)
         {
@@ -202,7 +202,7 @@ router.post('/add/stimulus/', (req, res, next) => {
         }
         else // count >= 1 ise
         {
-            console.log("Count in Else ",count);
+            //console.log("Count in Else ",count);
 
             const val = SensorData.updateOne({geriatric_id,sensor_location_id,sensor_date:today },{$push:{sensor_stimulations:today_with_hour}});
             val.then((data) => {

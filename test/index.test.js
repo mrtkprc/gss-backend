@@ -4,8 +4,8 @@ const should = chai.should();
 const server = require('../app');
 chai.use(chaiHttp);
 
-describe('Node Server',()=>{
-   it('(GET /) return index page',(done) => {
+describe('Node Server Test List',()=>{
+   it('it should return whether home page is working',(done) => {
         chai.request(server)
             .get('/')
             .end((err,res) => {
