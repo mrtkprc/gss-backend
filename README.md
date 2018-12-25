@@ -1,3 +1,4 @@
+[![Build status](https://api.travis-ci.org/mrtkprc/gss-backend.svg)](https://api.travis-ci.org/mrtkprc/gss-backend.svg)
 ## Welcome to Geriatric Surveillance System
 ***
 

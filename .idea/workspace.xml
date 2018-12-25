@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4e7bb32-c04b-48b7-8de4-cd01b16bf875" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/index.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -80,7 +79,7 @@
           <entry key="gitignore" value="5" />
           <entry key="js" value="88" />
           <entry key="json" value="8" />
-          <entry key="md" value="1" />
+          <entry key="md" value="2" />
           <entry key="pug" value="1" />
           <entry key="txt" value="1" />
           <entry key="www" value="4" />
@@ -92,7 +91,7 @@
           <entry key="JSON" value="8" />
           <entry key="Jade" value="1" />
           <entry key="JavaScript" value="92" />
-          <entry key="PLAIN_TEXT" value="7" />
+          <entry key="PLAIN_TEXT" value="8" />
           <entry key="YAML" value="1" />
         </counts>
       </usages-collector>
@@ -101,6 +100,7 @@
           <entry key="gitignore" value="21" />
           <entry key="js" value="14365" />
           <entry key="json" value="94" />
+          <entry key="md" value="24" />
           <entry key="pug" value="22" />
           <entry key="www" value="80" />
           <entry key="yml" value="106" />
@@ -111,7 +111,7 @@
           <entry key="JSON" value="94" />
           <entry key="Jade" value="22" />
           <entry key="JavaScript" value="14445" />
-          <entry key="PLAIN_TEXT" value="21" />
+          <entry key="PLAIN_TEXT" value="45" />
           <entry key="YAML" value="106" />
         </counts>
       </usages-collector>
@@ -147,10 +147,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/index.pug">
+        <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+            <state>
+              <caret column="119" lean-forward="true" selection-start-column="119" selection-end-column="119" />
             </state>
           </provider>
         </entry>
@@ -254,7 +254,6 @@
         <option value="$PROJECT_DIR$/models/Relative.js" />
         <option value="$PROJECT_DIR$/models/Geriatric.js" />
         <option value="$PROJECT_DIR$/routes/geriatrics.js" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/models/users.js" />
         <option value="$PROJECT_DIR$/helpers/telegram_bot/bot_server.js" />
         <option value="$PROJECT_DIR$/config.js" />
@@ -273,6 +272,7 @@
         <option value="$PROJECT_DIR$/helpers/db.js" />
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/views/index.pug" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -298,7 +298,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="949" />
     <option name="width" value="980" />
     <option name="height" value="1031" />
@@ -432,7 +432,7 @@
       <workItem from="1544465194231" duration="105000" />
       <workItem from="1544465383126" duration="1259000" />
       <workItem from="1545125819710" duration="133000" />
-      <workItem from="1545726982400" duration="10880000" />
+      <workItem from="1545726982400" duration="11581000" />
     </task>
     <servers />
   </component>
@@ -442,13 +442,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="115933000" />
+    <option name="totallyTimeSpent" value="116634000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <frame x="633" y="0" width="653" height="687" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.67170113" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.54383117" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -462,7 +462,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5007949" side_tool="true" weight="0.31672597" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49920508" visible="true" weight="0.28825623" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49920508" visible="true" weight="0.29241878" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -497,13 +497,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js" />
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="9" column="95" selection-start-line="9" selection-start-column="95" selection-end-line="9" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/users.js" />
     <entry file="file://$PROJECT_DIR$/models/Geriatric.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -631,6 +624,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -638,10 +638,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.pug">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+        <state>
+          <caret column="119" lean-forward="true" selection-start-column="119" selection-end-column="119" />
         </state>
       </provider>
     </entry>
