@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const {doSchedule,sample} = require('./helpers/cron_jobs/cron');
+//doSchedule.start();
+
 
 //const telegramBot = require('./helpers/telegram_bot/bot_server');
 
