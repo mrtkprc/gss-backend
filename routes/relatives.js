@@ -45,8 +45,24 @@ router.get('/get/relative', (req, res, next) => {
 
 router.put('/add/expo_push_notification', (req, res, next) => {
     const { data,email } = req.decode;
-    console.log("expo push id",data," and email: ",email);
-    res.end();
+    Relative.updateOne(
+        {
+            email
+        },
+        {
+            $set:{
+                expo_push_id:data
+            }
+        },
+        {
+            multi:true
+        }
+        ,(err,data) => {
+        if(data != null)
+            res.json(data);
+        else
+            res.json(err);
+    });
     
 });
 

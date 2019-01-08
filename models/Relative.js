@@ -6,7 +6,8 @@ const RelativeSchema = new Schema({
     surname:Schema.Types.String,
     gsm:Schema.Types.String,
     email:Schema.Types.String,
-    geriatric_id:Schema.Types.ObjectId
+    geriatric_id:Schema.Types.ObjectId,
+    expo_push_id:Schema.Types.String
 });
 
 module.exports = mongoose.model('relatives',RelativeSchema);
