@@ -43,4 +43,12 @@ router.get('/get/relative', (req, res, next) => {
     });
 });
 
+router.put('/add/expo_push_notification', (req, res, next) => {
+    const { data,email } = req.decode;
+    console.log("expo push id",data," and email: ",email);
+    res.end();
+    
+});
+
+
 module.exports = router;

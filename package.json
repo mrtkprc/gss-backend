@@ -21,6 +21,7 @@
     "morgan": "~1.9.0",
     "node-cron": "^2.0.3",
     "node-telegram-bot-api": "^0.30.0",
+    "onesignal-node": "^2.0.1",
     "pug": "2.0.0-beta11",
     "shortid": "^2.2.13"
   },

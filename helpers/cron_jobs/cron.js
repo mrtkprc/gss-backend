@@ -7,6 +7,9 @@ const Relative = require('../../models/Relative');
 
 const {convertDate2DateAndTime} = require('./../../helpers/global_operations');
 
+let startDate;
+let endDate;
+let timeDiff;
 
 const getSensorDataAndLocations = () => {
     return new Promise((resolve,reject) => {
@@ -23,13 +26,13 @@ const getSensorDataAndLocations = () => {
                 $unwind: '$sensor_location'
             },
             {
-                $sort:{sensor_date: 1 }
+                $sort:{sensor_date: -1 }
             },
             {
                 $group:{
-                    _id:"$geriatric_id",
+                    _id:"$sensor_location_id",
                     sensor_date:{$last:"$sensor_date"},
-                    sensor_stimulations: { "$first": {$slice: ["$sensor_stimulations",-1]}},
+                    sensor_stimulation_last_time: { "$first": {$slice: ["$sensor_stimulations",-1]}},
                     sensor_location_id: { "$first": "$sensor_location_id"},
                     alert_duration: { "$first": "$sensor_location.alert_duration"},
 
@@ -44,22 +47,30 @@ const getSensorDataAndLocations = () => {
         });
     });
 }
-//const eachLocationSignalControl()
+const checkAlertDurationofLocation = (value) => {
+    return new Promise((resolve,reject) => {
+        startDate = moment(value.sensor_stimulation_last_time[0], 'YYYY-MM-DD HH:mm:ss');
+        endDate = moment(convertDate2DateAndTime(new Date()), 'YYYY-MM-DD HH:mm:ss');
+        timeDiff = endDate.diff(startDate, 'minutes');
+
+        resolve(timeDiff);
+    });
+};
 
 const doSchedule = cron.schedule('* * * * *', () => {
-    console.log("DoSchedule");
-});
+    getSensorDataAndLocations()
+        .then((data)=>{
+        data.map((val) => {
 
-getSensorDataAndLocations().then((data)=>{
-    data.map((val) => {
-        console.log(val);
-    })
+            checkAlertDurationofLocation(val)
+                .then(data => {
+                    console.log("Time Diff: ",data);
+                });
+        })
+    });
 });
-
 
 module.exports.doSchedule = doSchedule;
-
-
 
 /*
 {
