@@ -4,6 +4,9 @@ const _ = require('lodash');
 const moment = require('moment');
 const SensorData = require('../../models/SensorData');
 const Relative = require('../../models/Relative');
+const Geriatric =require('../../models/Geriatric');
+
+const axios = require('axios');
 
 const {convertDate2DateAndTime} = require('./../../helpers/global_operations');
 
@@ -64,8 +67,26 @@ const doSchedule = cron.schedule('* * * * *', () => {
 
             checkAlertDurationofLocation(val)
                 .then(data => {
-                    console.log("Time Diff: ",data);
-                });
+                    console.log("Time Diff: ",data," val:",val);
+                    //return {time_diff:data,val:val}
+                    return false;
+                })
+                .then(data => {
+                    if(data === true)
+                    {
+                        const params = {
+                            "to": "ExponentPushToken[eNmORiHCU1FqSicXp3Pm36]",
+                            "title":"hello world",
+                            "body": "selammm dunya"
+                         };
+              
+                         axios.post('https://exp.host/--/api/v2/push/send', params, {
+                             headers: {
+                            'content-type': 'application/json',
+                            },
+                         });
+                    }
+                })
         })
     });
 });

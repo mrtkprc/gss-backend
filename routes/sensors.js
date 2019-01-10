@@ -3,16 +3,15 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const router = express.Router();
 const SensorData = require('../models/SensorData');
 const SensorLocation = require('../models/SensorLocation');
+const Relative = require('../models/Relative');
 const { convertDate2YearMonthDay,convertDate2DateAndTime } = require('../helpers/global_operations');
 const _ = require('lodash');
 
 router.get(['/get/stimulus/:year/:month/:day','/get/stimulus/today','/get/stimulus/last'], (req, res, next) => {
-    console.log();
     let date_time = "";
     let isLastEndPoint = false;
     const {geriatric_id} = req.decode;
-    //console.log("Geriatric ID: ",geriatric_id);
-    //console.log("Req.Path: ",req.path);
+
     if ( req.path === '/get/stimulus/today/' || req.path === '/get/stimulus/today' )
     {
         date_time = convertDate2YearMonthDay(new Date());
@@ -173,13 +172,11 @@ router.post('/add/location/', (req, res, next) => {
 });
 
 router.post('/add/stimulus/', (req, res, next) => {
-    //Sensor Data Added
     const d = new Date();
     const today = convertDate2YearMonthDay(new Date());
     const today_with_hour = convertDate2DateAndTime(new Date());
 
     const {sensor_location_id,geriatric_id} = req.decode;
-    //console.log("Sensor Location id: ",sensor_location_id," Geriatric ID: ",geriatric_id);
     SensorData.countDocuments({geriatric_id,sensor_location_id, sensor_date:today },( err, count) => {
         if(count < 1)
         {
@@ -202,8 +199,6 @@ router.post('/add/stimulus/', (req, res, next) => {
         }
         else // count >= 1 ise
         {
-            //console.log("Count in Else ",count);
-
             const val = SensorData.updateOne({geriatric_id,sensor_location_id,sensor_date:today },{$push:{sensor_stimulations:today_with_hour}});
             val.then((data) => {
                 res.json(
@@ -254,9 +249,102 @@ router.get('/get_locations_with_stimuluses/', (req, res, next) => {
         res.json(result);
 
     });
+});
 
-    
-    
+router.get('/get/stimulus/last_location', (req, res, next) => {
+    const {geriatric_id} = req.decode;
+    const match_value = {
+        geriatric_id:ObjectId(geriatric_id)
+    };
+
+    const val_pro = SensorData.aggregate([
+        {
+            $lookup: {
+                from: 'sensor_locations',
+                localField: 'sensor_location_id',
+                foreignField: '_id',
+                as: 'sensor_location'
+            },
+        },
+        {
+            $unwind: '$sensor_location'
+        },
+        {
+            $match:match_value
+        }
+        ,
+        {
+            $project: {
+                _id: 1,
+                sensor_stimulations: 1,
+                sensor_location_id: '$sensor_location._id',
+                sensor_location_name: '$sensor_location.name',
+                sensor_location_icon_name: '$sensor_location.icon_name'
+            }
+        }
+    ], (err, val) => {
+        const final_result = [];
+
+
+        for(let i = 0;i<Object.keys(val).length;i++)
+        {
+            let stimulations_array = val[i]['sensor_stimulations'];
+            let last_stimulation = (stimulations_array[stimulations_array.length-1]).toString();
+            let sensor_location_id = val[i]['sensor_location_id'];
+            let sensor_location_name = val[i]['sensor_location_name'];
+            let sensor_location_icon_name = val[i]['sensor_location_icon_name'];
+            let _id = val[i]['_id'];
+
+            if(final_result.length === 0) {
+                final_result.push(
+                    {
+                        sensor_location_id,
+                        last_stimulation,
+                        sensor_location_name,
+                        sensor_location_icon_name,
+                        _id
+                    }
+                )
+            }
+            else{
+                let first_element = val[0]['last_stimulation'];
+                if(first_element > last_stimulation ){
+                    final_result.push(
+                        {
+                            sensor_location_id,
+                            last_stimulation,
+                            sensor_location_name,
+                            sensor_location_icon_name,
+                            _id
+                        }
+                    );
+                }else{
+                    final_result.unshift(
+                        {
+                            sensor_location_id,
+                            last_stimulation,
+                            sensor_location_name,
+                            sensor_location_icon_name,
+                            _id
+                        }
+                    );
+                }
+            }
+        }
+        if(final_result.length > 0)
+        {
+            const last_location =final_result.sort((a, b) => {
+                return b.last_stimulation.toString().localeCompare(a.last_stimulation.toString());
+            })[0];
+
+
+            res.json(last_location);
+        }
+        else
+        {
+            res.json([]);
+        }
+    });
 });
 
 module.exports = router;
