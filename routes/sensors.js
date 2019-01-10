@@ -279,7 +279,8 @@ router.get('/get/stimulus/last_location', (req, res, next) => {
                 sensor_stimulations: 1,
                 sensor_location_id: '$sensor_location._id',
                 sensor_location_name: '$sensor_location.name',
-                sensor_location_icon_name: '$sensor_location.icon_name'
+                sensor_location_icon_name: '$sensor_location.icon_name',
+                alert_duration:'$sensor_location.alert_duration'
             }
         }
     ], (err, val) => {
@@ -293,6 +294,7 @@ router.get('/get/stimulus/last_location', (req, res, next) => {
             let sensor_location_id = val[i]['sensor_location_id'];
             let sensor_location_name = val[i]['sensor_location_name'];
             let sensor_location_icon_name = val[i]['sensor_location_icon_name'];
+            let alert_duration = val[i]['alert_duration'];
             let _id = val[i]['_id'];
 
             if(final_result.length === 0) {
@@ -302,6 +304,7 @@ router.get('/get/stimulus/last_location', (req, res, next) => {
                         last_stimulation,
                         sensor_location_name,
                         sensor_location_icon_name,
+                        alert_duration,
                         _id
                     }
                 )
@@ -315,6 +318,7 @@ router.get('/get/stimulus/last_location', (req, res, next) => {
                             last_stimulation,
                             sensor_location_name,
                             sensor_location_icon_name,
+                            alert_duration,
                             _id
                         }
                     );
@@ -325,6 +329,7 @@ router.get('/get/stimulus/last_location', (req, res, next) => {
                             last_stimulation,
                             sensor_location_name,
                             sensor_location_icon_name,
+                            alert_duration,
                             _id
                         }
                     );
